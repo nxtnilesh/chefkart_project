@@ -69,8 +69,8 @@ chefkart_dishes_app/
 1.  **Clone the Repository:**
 
     ```bash
-    git clone [Your Repository URL Here]
-    cd chefkart_dishes_app
+    git clone https://github.com/nxtnilesh/chefkart_project.git
+    cd chefkart_project
     ```
 
 2.  **Install Dependencies:**
