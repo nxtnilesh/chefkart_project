@@ -325,111 +325,9 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
           ),
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
+
         // The bottom part of the header (Calendar/Time and Tags)
-        
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(100.0),
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Date and Time Row
-                Container(
-                  width: 314,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-
-                    vertical: 16,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 3,
-                        offset: const Offset(0, 1),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/Select_date-01.svg',
-                            width: 18,
-                            height: 18,
-                          ),
-                          const SizedBox(width: 8),
-                          const Text(
-                            '21 May 2021',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              height: 17 / 12,
-                              letterSpacing: 0.12,
-                              color: Color(0xFF1C1C1C),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      /* -------- VERTICAL SEPARATOR -------- */
-                      Container(height: 16, width: 1, color: Colors.grey),
-
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/Set_time-01.svg',
-                            width: 15,
-                            height: 16,
-                          ),
-                          const SizedBox(width: 8),
-                          const Text(
-                            '10:30 PM - 12:30 PM',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF1C1C1C),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Tags
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      _buildTag('Italian', isSelected: true),
-                      _buildTag('Indian', isSelected: false),
-                      _buildTag('Indian'),
-                      _buildTag('Chinese'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+     
       ),
 
       body: FutureBuilder<Map<String, dynamic>>(
@@ -480,213 +378,178 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
             // --- END DUPLICATION ---
 
             return Stack(
+  clipBehavior: Clip.none,
+  children: [
+    // ───────── Scrollable Content ─────────
+    SingleChildScrollView(
+      padding: const EdgeInsets.only(
+        top: 120, // space for black bar + overlap
+        left: 16,
+        right: 16,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ───── Cuisine Tags ─────
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
               children: [
-                
-                SingleChildScrollView(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // --- Popular Dishes Section ---
-                      // -------- Popular Dishes --------
-                      const Text(
-                        'Popular Dishes',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
+                _buildTag('Italian', isSelected: true),
+                _buildTag('Indian'),
+                _buildTag('Chinese'),
+              ],
+            ),
+          ),
 
-                      SizedBox(
-                        height: 70,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          separatorBuilder:
-                              (_, __) => const SizedBox(width: 12),
-                          itemBuilder: (context, index) {
-                            return SizedBox(
-                              width: 57,
-                              height: 57,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  // Biryani image
-                                  ClipOval(
-                                    child: Image.asset(
-                                      'assets/icons/Mask Group 19.png',
-                                      width: 57,
-                                      height: 57,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+          const SizedBox(height: 24),
 
-                                  // Dark overlay
-                                  Container(
-                                    width: 57,
-                                    height: 57,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Color(0x9A1C1C1C),
-                                    ),
-                                  ),
+          // ───── BIRYANI / POPULAR DISHES SECTION ─────
+          const Text(
+            'Popular Dishes',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
 
-                                  // Text inside circle
-                                  const Text(
-                                    'Biryani',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+          const SizedBox(height: 16),
 
-                                  // Orange border (skip first)
-                                  if (index != 0)
-                                    Container(
-                                      width: 57,
-                                      height: 57,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: Color(0xFFFF941A),
-                                          width: 2,
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+          _buildPopularBiryaniSection(),
 
-                      const Divider(height: 30),
+          const Divider(height: 30),
 
-                      // --- Recommended Section ---
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                'Recommended',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Icon(Icons.keyboard_arrow_down),
-                            ],
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Text(
-                              'Menu',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+          // ───── Recommended Section ─────
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Recommended',
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Text(
+                  'Menu',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
 
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Text(
-                      //       'Recommended',
-                      //       style: GoogleFonts.poppins(
-                      //         fontSize: 18,
-                      //         fontWeight: FontWeight.bold,
-                      //       ),
-                      //     ),
-                      //     Container(
-                      //       padding: const EdgeInsets.symmetric(
-                      //         horizontal: 16,
-                      //         vertical: 8,
-                      //       ),
-                      //       decoration: BoxDecoration(
-                      //         color: Colors.black,
-                      //         borderRadius: BorderRadius.circular(10),
-                      //       ),
-                      //       child: Text(
-                      //         'Menu',
-                      //         style: GoogleFonts.poppins(
-                      //           color: Colors.white,
-                      //           fontSize: 14,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      // const SizedBox(height: 8),
-                      // Recommended Dishes List - Now showing 6 items
-                      ...recommendedDishes.map((dish) {
-                        return _buildRecommendedDishCard(dish);
-                      }).toList(),
-                      const SizedBox(height: 120),
-                    ],
+          const SizedBox(height: 8),
+
+          ...recommendedDishes.map(_buildRecommendedDishCard).toList(),
+
+          const SizedBox(height: 140),
+        ],
+      ),
+    ),
+
+    // ───────── Black Background Bar ─────────
+    Container(
+      width: double.infinity,
+      height: 60,
+      color: Colors.black,
+    ),
+
+    // ───────── Calendar Card (Overlapping) ─────────
+    Positioned(
+      top: 30, // half overlap
+      left: 16,
+      right: 16,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 6,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/Select_date-01.svg',
+                  width: 18,
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  '21 May 2021',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                // --- Bottom Navigation Bar (Floating View List) ---
-                if (_selectedDishIds.isNotEmpty)
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: InkWell(
-                        onTap: () {
-                          // Navigates to the first selected item's details (ID 1 for the mock data)
-                          _navigateToDishDetails(_selectedDishIds.first);
-                        },
-                        child: Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '  ${_selectedDishIds.length} food items selected  ',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                const Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
               ],
-            );
+            ),
+
+            Container(height: 16, width: 1, color: Colors.grey),
+
+            Row(
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/Set_time-01.svg',
+                  width: 16,
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  '10:30 PM - 12:30 PM',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+
+    // ───────── Bottom Floating Bar ─────────
+    if (_selectedDishIds.isNotEmpty)
+      Positioned(
+        left: 16,
+        right: 16,
+        bottom: 16,
+        child: Container(
+          height: 60,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Center(
+            child: Text(
+              '${_selectedDishIds.length} food items selected',
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
+      ),
+  ],
+);
+
           }
           return const SizedBox.shrink();
         },
@@ -694,93 +557,70 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
     );
   }
 
-  Widget popularDishesSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Popular Dishes',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-        ),
-        const SizedBox(height: 16),
+  Widget _buildPopularBiryaniSection() {
+  return SizedBox(
+    height: 70,
+    child: ListView.separated(
+      scrollDirection: Axis.horizontal,
+      itemCount: 5,
+      separatorBuilder: (_, __) => const SizedBox(width: 12),
+      itemBuilder: (context, index) {
+        return SizedBox(
+          width: 57,
+          height: 57,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Biryani Image
+              ClipOval(
+                child: Image.asset(
+                  'assets/icons/Mask Group 19.png',
+                  width: 57,
+                  height: 57,
+                  fit: BoxFit.cover,
+                ),
+              ),
 
-        SizedBox(
-          height: 70,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: 5,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (context, index) {
-              return SizedBox(
+              // Dark Overlay
+              Container(
                 width: 57,
                 height: 57,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // Image
-                    ClipOval(
-                      child: Image.network(
-                        'https://unsplash.com/photos/a-plate-of-food-with-a-fork-and-a-spoon-2lboyunY0cw',
-                        width: 57,
-                        height: 57,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Image.network(
-                            'https://picsum.photos/200', // fallback image
-                            width: 57,
-                            height: 57,
-                            fit: BoxFit.cover,
-                          );
-                        },
-                      ),
-                    ),
-
-                    // Dark overlay
-                    Container(
-                      width: 57,
-                      height: 57,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color(0x9A1C1C1C),
-                      ),
-                    ),
-
-                    // Text inside circle
-                    const Text(
-                      'Biryani',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-
-                    // Orange border (skip first item)
-                    if (index != 0)
-                      Container(
-                        width: 57,
-                        height: 57,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Color(0xFFFF941A),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                  ],
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0x9A1C1C1C),
                 ),
-              );
-            },
+              ),
+
+              // Text
+              const Text(
+                'Biryani',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+
+              // Orange Border (skip first)
+              if (index != 0)
+                Container(
+                  width: 57,
+                  height: 57,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Color(0xFFFF941A),
+                      width: 2,
+                    ),
+                  ),
+                ),
+            ],
           ),
-        ),
-      ],
-    );
-  }
+        );
+      },
+    ),
+  );
+}
 
   Widget _buildTag(String text, {bool isSelected = false}) {
     return Container(
