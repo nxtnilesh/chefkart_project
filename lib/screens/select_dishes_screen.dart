@@ -562,7 +562,7 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
     height: 70,
     child: ListView.separated(
       scrollDirection: Axis.horizontal,
-      itemCount: 5,
+      itemCount: 8,
       separatorBuilder: (_, __) => const SizedBox(width: 12),
       itemBuilder: (context, index) {
         return SizedBox(

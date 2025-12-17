@@ -29,7 +29,7 @@ This repository contains the solution for the **ChefKart Flutter Developer Assig
 
 | 1. Select Dishes Screen | 2. Dish Details Screen |
 | :---: | :---: |
-| <img src="./screenshots/image2.png" alt="Screenshot of the main dish selection screen" width="300"/> | <img src="./screenshots/image.png" alt="Screenshot of the ingredient details screen" width="300"/> |
+| <img src="./screenshots/screen1.png" alt="Screenshot of the main dish selection screen" width="300"/> | <img src="./screenshots/screen2.png" alt="Screenshot of the ingredient details screen" width="300"/> |
 
 ***
 
