@@ -250,7 +250,7 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.asset(
-                      'assets/icons/Mask Group 19.png', // 👈 your asset image
+                      'assets/icons/Mask Group 19.png',
                       width: 92,
                       height: 68,
                       fit: BoxFit.cover,
@@ -333,6 +333,7 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
           ),
         ],
         // The bottom part of the header (Calendar/Time and Tags)
+        
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(100.0),
           child: Container(
@@ -419,7 +420,7 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
                   child: Row(
                     children: [
                       _buildTag('Italian', isSelected: true),
-                      _buildTag('Indian'),
+                      _buildTag('Indian', isSelected: false),
                       _buildTag('Indian'),
                       _buildTag('Chinese'),
                     ],
@@ -480,6 +481,7 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
 
             return Stack(
               children: [
+                
                 SingleChildScrollView(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -561,8 +563,6 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
                         ),
                       ),
 
-                      const Divider(height: 32),
-
                       const Divider(height: 30),
 
                       // --- Recommended Section ---
@@ -575,7 +575,7 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
                                 'Recommended',
                                 style: GoogleFonts.poppins(
                                   fontSize: 18,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w900,
                                 ),
                               ),
                               const SizedBox(width: 4),
@@ -791,7 +791,10 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
       decoration: BoxDecoration(
         color: isSelected ? const Color(0xFFFFF9F2) : Colors.transparent,
         borderRadius: BorderRadius.circular(17),
-        border: Border.all(color: const Color(0xFFFF941A), width: 0.5),
+        border:
+            isSelected
+                ? Border.all(color: const Color(0xFFFF941A), width: 0.5)
+                : Border.all(color: const Color(0xFF8A8A8A), width: 0.5),
         boxShadow:
             isSelected
                 ? const [
@@ -805,11 +808,14 @@ class _SelectDishesScreenState extends State<SelectDishesScreen> {
       ),
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          color: const Color(0xFFFF941A),
-        ),
+        style:
+            isSelected
+                ? TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFFFF941A),
+                )
+                : TextStyle(color: const Color(0xFF8A8A8A)),
       ),
     );
   }
